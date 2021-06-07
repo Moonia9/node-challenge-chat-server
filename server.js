@@ -57,6 +57,10 @@ app.post("/messages", function (req, res) {
     text: req.body.text,
   };
 
+  //Level 4
+  //add the current time to the message
+  message.timeSet = new Date();
+
   //Level 2
   //if message is invalid, return status 404
   if (!isAValidMessage(message)) {
