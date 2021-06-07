@@ -26,6 +26,28 @@ app.get("/messages", function (req, res) {
   res.send(messages);
 });
 
+//Level 3
+//finds and returns messages containing the search term from query params
+app.get("/messages/search", function (req, res) {
+  //get search term from query params
+  const searchTerm = req.query.text.toLowerCase();
+  //find messages containing that term
+  const results = messages.filter((m) =>
+    m.text.toLowerCase().includes(searchTerm)
+  );
+
+  //return
+  res.send(results);
+});
+
+//returns the most recent 10 messages
+app.get("/messages/latest", function (req, res) {
+  //let the last 10 messages
+  const results = messages.slice(-10);
+  //return them
+  res.send(results);
+});
+
 //1/2 Creating a new message & read all the messages
 //Adds a new message to the data store
 app.post("/messages", function (req, res) {
