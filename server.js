@@ -68,6 +68,30 @@ app.post("/messages", function (req, res) {
     return;
   }
 
+  //Level 5
+  //updates the form or text property only of an existing message
+  app.put("/messages/:id", function (req, res) {
+    //get the message id from the params
+    const id = req.params.id;
+    //find the message object with that id
+    const message = messages.find((m) => m.id == id);
+    //if not found, return 404 status code
+    if (!message) {
+      res.status(404).send();
+      return;
+    }
+    //otherwise take the form and/text properties from request body
+    //use them to replace the existing content
+    if (req.body.from) {
+      message.from = req.body.from;
+    }
+    if (req.body.text) {
+      message.text = req.body.text;
+    }
+    //return the new object
+    res.send(message);
+  });
+
   //assign it a new id
   message.id = getNextId();
   //add it to the data store array
